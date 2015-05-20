@@ -16,11 +16,13 @@ public class FogController : MonoBehaviour {
 	void Update () {
 		float temp_density = RenderSettings.fogDensity;
 		if (BreathDataProcesser.isInhaling) {
-			temp_density += fade_rate;
+			temp_density += fade_rate * Time.deltaTime;
 		} else {
 			if(temp_density > original_fog_density){
+				temp_density -= fade_rate * Time.deltaTime;
 				//gradually reduce fog density to original value...
 			}
 		}
+		RenderSettings.fogDensity = temp_density;
 	}
 }
